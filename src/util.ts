@@ -354,8 +354,7 @@ function extractFilenames(
     }
   }
   // add trailing slash
-  sourcePath =
-    sourcePath !== '.' ? path.normalize(`${sourcePath}/`) : sourcePath
+  sourcePath = path.normalize(`${sourcePath}/`)
   const filenames = allFiles
     .filter(
       f =>
@@ -364,6 +363,7 @@ function extractFilenames(
         f.status === 'modified'
     )
     .map(f => path.normalize(f.filename))
+    .map(f => sourcePath + f)
     .filter(f => sourcePath === '.' || f.startsWith(sourcePath))
   if (core.isDebug()) {
     core.debug(
